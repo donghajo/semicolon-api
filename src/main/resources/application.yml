@@ -1,0 +1,34 @@
+server:
+  port: 9001
+
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQL10Dialect
+      ddl-auto: validate
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  profiles:
+    include: secret
+
+logging:
+  config: classpath:log4j2.yml
+  level:
+    jdbc:
+      audit: OFF # JDBC ????? ??? ????? ?? ?? X
+      resultset: OFF # ResultSet? ??? ?? JDBC ?? ??? ??
+      resultsettable: INFO  #SQL ?? ??? Table???? ??
+      sqlonly: OFF     #SQL? ??? ??
+      connection: OFF  # ??? ??/?? ?? ??
