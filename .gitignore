@@ -38,3 +38,4 @@ out/
 
 ### personal setting ###
 application-secret.yml
+rollingfile.log**
