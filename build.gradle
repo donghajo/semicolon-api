@@ -1,24 +1,23 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.0-SNAPSHOT'
-	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.springframework.boot' version '2.7.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group = 'com'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+	sourceCompatibility = '11'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
 	all {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
 }
+
+ext['log4j2.version'] = '2.20.0'
 
 repositories {
 	mavenCentral()
@@ -30,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -41,9 +41,19 @@ dependencies {
 	//devtools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-//	logger
-	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	//logger
+	implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.3'   // log4j2
+	implementation 'org.slf4j:slf4j-api:2.0.9'
+
+	// aop
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+	// webflux webclient
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {

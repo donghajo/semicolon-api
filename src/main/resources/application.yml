@@ -1,20 +1,20 @@
 server:
-  port: 9001
+  port: 9000
 
 
 spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  jpa:
-    hibernate:
-      dialect: org.hibernate.dialect.PostgreSQL10Dialect
-      ddl-auto: validate
-    defer-datasource-initialization: true
+  jpa: # JPA 설정
+    open-in-view: true
+    generate-ddl: true
     properties:
-      hibernate:
-        format_sql: true
-        show_sql: false
+      hibernate: # 방언 설정
+        show_sql: true # 하이버네이트가 실행하는 모든 SQL문을 콘솔로 출력
+        format_sql: true # 콘솔에 출력되는 JPA 실행 쿼리를 가독성있게 표현
+        use_sql_comments: true # 디버깅이 용이하도록 SQL문 이외에 추가적인 정보를 출력
+        ddl_auto: update # 서버 시작시 Entity와 실제 Table을 비교하여 변경된 내용을 반영하고, 없으면 새로 생성 (none, update)
   devtools:
     livereload:
       enabled: true
@@ -25,10 +25,16 @@ spring:
 
 logging:
   config: classpath:log4j2.yml
-  level:
-    jdbc:
-      audit: OFF # JDBC ????? ??? ????? ?? ?? X
-      resultset: OFF # ResultSet? ??? ?? JDBC ?? ??? ??
-      resultsettable: INFO  #SQL ?? ??? Table???? ??
-      sqlonly: OFF     #SQL? ??? ??
-      connection: OFF  # ??? ??/?? ?? ??
+
+
+kakao:
+  clientId: cff225a0dbb13c68ca8abecfce1d7616
+  redirectUrl: http://localhost:9000/kakao/login
+  tokenUrl: https://kauth.kakao.com
+  userUrl: https://kapi.kakao.com
+
+jwt:
+  refresh:
+    header: Authorization-refresh
+  access:
+    header: Authorization

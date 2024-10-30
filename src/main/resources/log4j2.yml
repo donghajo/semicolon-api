@@ -10,7 +10,22 @@ Configuration:
       name: Console_Appender
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%-5level}[%F] [%style{%c{1}}{cyan}:%L] - %msg%n"
+        pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%-5level} [%t] [%style{%c{1}}{yellow}:%L] - %msg%n"
+    RollingFile:
+      name: RollingFile_Appender
+      fileName: ${log-path}/rollingfile.log
+      filePattern: "logs/archive/rollingfile.log.%d{yyyy-MM-dd-hh-mm}_%i.gz"
+      PatternLayout:
+#        charset: ${charset-UTF-8}
+        pattern: ${pattern}
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: "200KB"
+        TimeBasedTriggeringPolicy:
+          interval: "1"
+      DefaultRollOverStrategy:
+        max: "30"
+        fileIndex: "max"
   Loggers:
     Root:
       level: info
