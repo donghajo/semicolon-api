@@ -1,9 +1,9 @@
-package com.semicolonapi.server.controllers;
+package com.semicolonapi.server.user.controllers;
 
 import com.semicolonapi.framework.models.ResponseDto;
 import com.semicolonapi.framework.utils.ResponseUtil;
-import com.semicolonapi.server.models.UserDto;
-import com.semicolonapi.server.services.UserService;
+import com.semicolonapi.server.user.models.UserDto;
+import com.semicolonapi.server.user.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

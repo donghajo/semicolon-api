@@ -1,4 +1,4 @@
-package com.semicolonapi.server.domains;
+package com.semicolonapi.server.user.domains;
 
 import lombok.*;
 import org.hibernate.annotations.Comment;

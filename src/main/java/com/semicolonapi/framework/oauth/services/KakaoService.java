@@ -1,11 +1,10 @@
 package com.semicolonapi.framework.oauth.services;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.semicolonapi.framework.oauth.model.KakaoDto;
 import com.semicolonapi.framework.oauth.model.KakaoProperty;
-import com.semicolonapi.server.domains.Role;
-import com.semicolonapi.server.models.UserDto;
-import com.semicolonapi.server.services.UserService;
+import com.semicolonapi.server.user.domains.Role;
+import com.semicolonapi.server.user.models.UserDto;
+import com.semicolonapi.server.user.services.UserService;
 import io.netty.handler.codec.http.HttpHeaderValues;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +15,8 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.HashMap;
 
 @Slf4j
 @Service

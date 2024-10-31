@@ -1,7 +1,7 @@
-package com.semicolonapi.server.models;
+package com.semicolonapi.server.user.models;
 
-import com.semicolonapi.server.domains.Role;
-import com.semicolonapi.server.domains.User;
+import com.semicolonapi.server.user.domains.Role;
+import com.semicolonapi.server.user.domains.User;
 import lombok.*;
 
 public class UserDto {

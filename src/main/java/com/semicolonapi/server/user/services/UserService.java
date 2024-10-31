@@ -1,8 +1,8 @@
-package com.semicolonapi.server.services;
+package com.semicolonapi.server.user.services;
 
-import com.semicolonapi.server.domains.User;
-import com.semicolonapi.server.models.UserDto;
-import com.semicolonapi.server.repositories.UserRepository;
+import com.semicolonapi.server.user.domains.User;
+import com.semicolonapi.server.user.models.UserDto;
+import com.semicolonapi.server.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
