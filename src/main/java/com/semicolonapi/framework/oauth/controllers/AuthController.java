@@ -27,7 +27,6 @@ public class AuthController {
     @GetMapping("/kakao/autorize")
     public ResponseDto.Data<?> kakaoAuthority(){
         String uri = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+kakaoProperty.getClientId()+"&redirect_uri="+kakaoProperty.getRedirectUrl()+"&prompt=login";
-        log.info("uri");
         return ResponseUtil.returnSingle(uri);
     }
 

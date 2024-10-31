@@ -78,14 +78,16 @@ public class KakaoService {
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
-       webClient.post()
+        KakaoDto.UserInfo obj =  webClient.post()
                 .uri(uriBuilder -> uriBuilder
                         .scheme("https")
                         .path("/v1/user/logout")
                         .build(true))
                 .header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED.toString())
                 .header(ACCESS_HEADER, "Bearer " + accessToken)
-                .retrieve();
+                .retrieve()
+                .bodyToMono(KakaoDto.UserInfo.class)
+                .block();
     }
 
     /**
