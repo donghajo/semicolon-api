@@ -24,7 +24,7 @@ public class AuthController {
     private final GoogleService googleService;
     private final KakaoProperty kakaoProperty;
 
-    @GetMapping("/kakao/autorize")
+    @GetMapping("/kakao/authorize")
     public ResponseDto.Data<?> kakaoAuthority(){
         String uri = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+kakaoProperty.getClientId()+"&redirect_uri="+kakaoProperty.getRedirectUrl()+"&prompt=login";
         return ResponseUtil.returnSingle(uri);
