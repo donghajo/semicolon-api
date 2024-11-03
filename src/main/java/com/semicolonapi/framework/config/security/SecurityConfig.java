@@ -4,41 +4,42 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.formLogin().disable(); // form login 사용 x
-        http.httpBasic().disable(); // 기본 설정 사용 x
-        http.csrf().disable();  // csrf 보안 x
+        http.csrf(AbstractHttpConfigurer::disable)     // csrf 보안 x
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .formLogin(fl -> fl.disable())  // form login 사용 x
+                .httpBasic(hb -> hb.disable()); // 기본 설정 사용 x
 
-        http.exceptionHandling()
-            .accessDeniedHandler(new CAccessDeniedHandler())
-            .authenticationEntryPoint(new CAuthenticationEntryPoint());
-
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 세션 x
-
-        http.authorizeHttpRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").denyAll()
-                .antMatchers(HttpMethod.TRACE, "/**").denyAll()
-                .antMatchers(HttpMethod.PATCH, "/**").denyAll()
-                .antMatchers("/api/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/api/users/**").permitAll()
-//                .antMatchers("/colony/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/").permitAll()
-                .antMatchers("/kakao/**", "/google/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
-                .anyRequest().authenticated();
+        // entry point handler
+        http.exceptionHandling(conf -> conf
+                .authenticationEntryPoint(new CAuthenticationEntryPoint())
+                .accessDeniedHandler(new CAccessDeniedHandler())
+        );
+        
+        http.authorizeHttpRequests(authorize ->
+                authorize.requestMatchers(HttpMethod.OPTIONS, "/**").denyAll()
+                        .requestMatchers(HttpMethod.TRACE, "/**").denyAll()
+                        .requestMatchers(HttpMethod.PATCH, "/**").denyAll()
+                        .requestMatchers("/api/admin/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/api/users/**").permitAll()
+    //                .requestMatchers("/colony/**").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/kakao/**", "/google/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/exception/**").permitAll()
+                        .anyRequest().authenticated()
+        );
 
         return http.build();
     }

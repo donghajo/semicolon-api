@@ -1,11 +1,11 @@
 package com.semicolonapi.server.user.domains;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
 
 @Getter
 @Builder
